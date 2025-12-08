@@ -2,8 +2,18 @@
 
 import { Octokit } from '@octokit/core'
 
+const duration = require('minimist')(process.argv.slice(2))
+console.log(duration)
+
+
+console.log(duration)
+
 const octokit = new Octokit()
 
-await octokit.request("GET search/repositories?q=stars:>5000&sort=stars&order=desc")
+// const res = await octokit.request('GET /search/repositoriesq=stars:>10000&sort=stars&order=desc', {
+//   headers: {
+//     'X-GitHub-Api-Version': '2022-11-28'
+//   }
+// })
 
-console.log(octokit)
+// console.log(res.data)

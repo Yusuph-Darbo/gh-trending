@@ -1,5 +1,7 @@
 {
+  "type": "module",
   "dependencies": {
-    "@octokit/core": "^7.0.6"
+    "@octokit/core": "^7.0.6",
+    "minimist": "^1.2.8"
   }
 }
