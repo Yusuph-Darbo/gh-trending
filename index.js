@@ -25,41 +25,46 @@ const duration = minimist(process.argv.slice(2), {
 })
 const octokit = new Octokit()
 const date = new Date
-console.log(date.toLocaleTimeString("en-eu", {timeStyle: "medium"}))
 
-console.log(duration)
-getTimeFrame()
+const res = await octokit.request('GET /search/repositories', {
+    q: `stars:>5000 pushed:>${getTimeFrame()}`,
+    sort: "stars",
+    order: "desc",
+    per_page: duration.limit,
+  headers: {
+    'X-GitHub-Api-Version': '2022-11-28'
+  }
+})
 
-// const res = await octokit.request('GET /search/repositories', {
-//     q: "stars:>5000 pushed:>2024-01-01",
-//     sort: "stars",
-//     order: "desc",
-//     per_page: duration.limit,
-//   headers: {
-//     'X-GitHub-Api-Version': '2022-11-28'
-//   }
-// })
 
-// console.log(res.data)
+console.log(`The top ${duration.limit} repos in the last ${duration.duration}:`)
+res.data.items.forEach(repo =>
+    {
+        console.log(`Name: ${repo.name}`)
+        console.log(`Description: ${repo.description}`)
+        console.log(`Stars: ${repo.stargazers_count}`)
+        console.log(`Language: ${repo.language}`)
+        console.log("")
+    })
 
 function getTimeFrame(){
     switch(duration.duration){
 
          case 'year':
-            console.log("year")
-            break
+            date.setDate(date.getDate() - 365)
+            return(date.toISOString())
 
         case 'month':
-            console.log("month")
-            break
+            date.setDate(date.getDate() - 30)
+            return(date.toISOString())
 
         case 'week':
-            console.log("week")
-            break
+            date.setDate(date.getDate() - 7)
+            return(date.toISOString())
         
         case 'day':
-            console.log("day")
-            break
+            date.setDate(date.getDate() - 1)
+            return(date.toISOString())
         
         default:
             console.error("Invalid input. Try again")
