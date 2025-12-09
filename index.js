@@ -26,7 +26,8 @@ const duration = minimist(process.argv.slice(2), {
 const octokit = new Octokit()
 const date = new Date
 
-const res = await octokit.request('GET /search/repositories', {
+try {
+    const res = await octokit.request('GET /search/repositories', {
     q: `stars:>5000 pushed:>${getTimeFrame()}`,
     sort: "stars",
     order: "desc",
@@ -45,7 +46,22 @@ res.data.items.forEach(repo =>
         console.log(`Stars: ${repo.stargazers_count}`)
         console.log(`Language: ${repo.language}`)
         console.log("")
-    })
+    })} catch (error) {
+    if (error.status === undefined){
+        console.log("Network error: Check your internet connection")
+    }
+    else if (error.status === 404){
+        console.log("Github user not found")
+    }
+    else if (error.status === 403){
+        console.log("Rate limit exceeded — try again later")
+    }
+    else {
+        console.log("Unexpected error please try again")
+        console.error(error);
+    }
+    }
+
 
 function getTimeFrame(){
     switch(duration.duration){

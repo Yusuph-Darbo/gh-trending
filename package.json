@@ -3,5 +3,24 @@
   "dependencies": {
     "@octokit/core": "^7.0.6",
     "minimist": "^1.2.8"
-  }
+  },
+  "name": "@yusuph-darbo/gh-trending",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Yusuph-Darbo/gh-trending.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Yusuph-Darbo/gh-trending/issues"
+  },
+  "homepage": "https://github.com/Yusuph-Darbo/gh-trending#readme"
 }
