@@ -8,7 +8,7 @@
     "minimist": "^1.2.8"
   },
   "name": "@yusuph-darbo/gh-trending",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "CLI tool to display the most popular repos in a given time frame.",
   "main": "index.js",
   "devDependencies": {},
