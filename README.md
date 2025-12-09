@@ -25,10 +25,9 @@ Perfect for exploring trending open-source projects directly from your terminal.
 Install globally using npm:
 
 ```bash
-npm install -g <your-package-name>
+npm install -g @yusuph-darbo/gh-trending
 ```
 
-> Replace `<your-package-name>` with the name you published to npm.
 
 ---
 
