@@ -1,4 +1,7 @@
 {
+  "bin": {
+    "gh-trending": "index.js"
+  },
   "type": "module",
   "dependencies": {
     "@octokit/core": "^7.0.6",
