@@ -52,7 +52,7 @@ try {
 } catch (error: unknown) {
   if (error instanceof RequestError) {
     if (error.status === 404) {
-      console.log("Github user not found");
+      console.log("Github repo not found");
     } else if (error.status === 403) {
       console.log("Rate limit exceeded — try again later");
     } else {
@@ -64,7 +64,7 @@ try {
   }
 }
 
-function getTimeFrame() {
+function getTimeFrame(): string {
   switch (duration.duration) {
     case "year":
       date.setDate(date.getDate() - 365);

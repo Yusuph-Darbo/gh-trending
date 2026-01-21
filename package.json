@@ -1,6 +1,6 @@
 {
   "bin": {
-    "gh-trending": "index.js"
+    "gh-trending": "dist/index.js"
   },
   "type": "module",
   "dependencies": {
@@ -8,16 +8,29 @@
     "minimist": "^1.2.8"
   },
   "name": "@yusuph-darbo/gh-trending",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "description": "CLI tool to display the most popular repos in a given time frame.",
-  "main": "index.js",
+  "main": "dist/index.js",
   "devDependencies": {
     "@types/minimist": "^1.2.5",
     "@types/node": "^25.0.9",
     "typescript": "^5.9.3"
   },
   "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
   },
   "repository": {
     "type": "git",
