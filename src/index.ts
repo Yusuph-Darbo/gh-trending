@@ -2,6 +2,7 @@
 
 import minimist from "minimist";
 import { Octokit } from "@octokit/core";
+import { RequestError } from "@octokit/request-error";
 
 // Returns a copy of the arguements starting from index 2 (inclusive)
 const duration = minimist(process.argv.slice(2), {
@@ -16,15 +17,16 @@ const duration = minimist(process.argv.slice(2), {
     limit: 20,
   },
 
-  unknown: (arg) => {
+  unknown: (arg: string): boolean => {
     if (arg.startsWith("-")) {
       console.error(`❌ Unknown option: ${arg}`);
       process.exit(1);
     }
+    return true;
   },
 });
-const octokit = new Octokit();
-const date = new Date();
+const octokit: Octokit = new Octokit();
+const date: Date = new Date();
 
 try {
   const res = await octokit.request("GET /search/repositories", {
@@ -38,7 +40,7 @@ try {
   });
 
   console.log(
-    `The top ${duration.limit} repos in the last ${duration.duration}:`
+    `The top ${duration.limit} repos in the last ${duration.duration}:`,
   );
   res.data.items.forEach((repo) => {
     console.log(`Name: ${repo.name}`);
@@ -47,16 +49,18 @@ try {
     console.log(`Language: ${repo.language}`);
     console.log("");
   });
-} catch (error) {
-  if (error.status === undefined) {
-    console.log("Network error: Check your internet connection");
-  } else if (error.status === 404) {
-    console.log("Github user not found");
-  } else if (error.status === 403) {
-    console.log("Rate limit exceeded — try again later");
+} catch (error: unknown) {
+  if (error instanceof RequestError) {
+    if (error.status === 404) {
+      console.log("Github user not found");
+    } else if (error.status === 403) {
+      console.log("Rate limit exceeded — try again later");
+    } else {
+      console.log("Unexpected error please try again");
+      console.error(error);
+    }
   } else {
-    console.log("Unexpected error please try again");
-    console.error(error);
+    console.log("Network error: Check your internet connection");
   }
 }
 

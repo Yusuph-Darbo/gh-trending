@@ -12,6 +12,7 @@
   "description": "CLI tool to display the most popular repos in a given time frame.",
   "main": "index.js",
   "devDependencies": {
+    "@types/minimist": "^1.2.5",
     "@types/node": "^25.0.9",
     "typescript": "^5.9.3"
   },
